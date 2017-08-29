@@ -1,0 +1,13 @@
+.SOGOU-WARNING {
+    .warning-list{
+        width: 1100px;
+        .warning-table{
+            width: 100%;
+            display: table-cell;
+            td,th{
+                border: 1px solid rgba(0,0,0,1);
+                text-align: center;
+            }
+        }
+    }
+}
