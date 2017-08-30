@@ -65,7 +65,6 @@ function forDirs (dirs, doneCallback) {
     copieDirs.forEach(function(path){
        watchDir.push(path);
        forDir(path, watchDir, function(processedDirPath, subFiles){
-           console.log(processedDirPath);
            allFiles = allFiles.concat(subFiles);
            watchDir.splice(watchDir.indexOf(processedDirPath),1);
            if(watchDir.length == 0){
@@ -87,11 +86,20 @@ function readFiles (filePath) {
                     curDataObj["dateStr"] = curData.match(/\[(.*?)(?=\])\]/g)?curData.match(/\[(.*?)(?=\])\]/)[1].split(/\s+/)[0]:"";
                     interfacePath = curData.match(/(\/jk_send.gif[^\s]+)/g)?curData.match(/(\/jk_send.gif[^\s]+)/g)[0]:"";
                     interfacePath = interfacePath.split(/&/);
-                    console.log(interfacePath)
+                    for(let i = 0;i<interfacePath.length;i++){
+                        let aryItem = interfacePath[i];
+                        if(i == 0){
+                            curDataObj["classId"] = aryItem.match(/\d+/)?aryItem.match(/\d+/)[0]:"";
+                        }else{
+                            aryItem = aryItem.split("=");
+                            aryItem?curDataObj[aryItem[0]] = aryItem[1]:"";
+                        }
+                    }
                     curDataObj["appPath"] = curData.match(/\"(.*?)(?=\")\"/g)?curData.match(/\"(.*?)(?=\")\"/g)[1].replace(/\"/g,""):"";
+                    resultJSON.push(curDataObj);
                 }
             });
-
+            console.log(resultJSON);
         }
     })
 
@@ -102,7 +110,8 @@ forDirs(dirs,function(filesArray){
     if(filesArray.length > 0){
         for(let filePath of filesArray){
             readFiles(filePath);
-        }
+        };
     }
-})
+});
+
 

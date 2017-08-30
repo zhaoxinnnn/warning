@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-config.js --progress --inline --colors",
-    "build": "webpack --config webpack-dev-config.js --progress --inline --colors --watch"
+    "build": "webpack --config webpack-dev-config.js --progress --inline --colors --watch "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "axios": "^0.16.2",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -33,9 +34,12 @@
     "url-loader": "^0.5.9"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-loader": "^7.1.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1"
   }

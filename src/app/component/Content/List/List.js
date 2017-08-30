@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 
-import './list.scss';
+import './List.scss';
 
 export default class List extends Component {
     render () {
+        console.log(this.props.datas);
         return (
             <div className="warning-list">
                 <table className="warning-table">
