@@ -9,24 +9,30 @@ import reducer from './Reducer/MainReducer';
 import {createStore} from 'redux';
 import axios from 'axios';
 
+const store = createStore(reducer);
+const stateDatas = store.getState();
 
 export default class MainApp extends Component {
     constructor(props){
         super(props);
-        function getDatas () {
-            axios.get('/background/readFiles')
-                .then(function(response){
-                    console.log(response);
-                })
-                .catch(function(error){
-                    console.log(error);
-                });
-        };
-        getDatas();
+        this.state = {
+            warningDatas : []
+        }
     };
+    componentDidMount () {
+        axios.get('/background/readFiles')
+            .then(function(response){
+                this.setState({
+                    warningDatas : response.data.resultJSON
+                });
+            })
+            .catch(function(error){
+                console.log(error);
+            });
+    }
     render () {
-        const store = createStore(reducer);
-        const stateDatas = store.getState();
+        const result = this.state.warningDatas;
+        console.log(result);
         return (
             <div className="SOGOU-WARNING">
                 <Header/>

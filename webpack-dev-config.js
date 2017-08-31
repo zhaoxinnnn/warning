@@ -31,11 +31,11 @@ module.exports = {
             template : "./index.html"
         }),
         new openBrowserWebpackPlugin({
-            url : "http://localhost:3100"
+            url : "http://localhost:3000"
         })
     ],
     devServer: {
-        port : 3100,
+        port : 3000,
         //可以在局域网中使用ip访问
         host : "0.0.0.0",
         disableHostCheck : true

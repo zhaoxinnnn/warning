@@ -1,36 +1,20 @@
 const PORT = 3000;
 const http = require('http');
 const path = require('path');
-const url = require('url');
-const fs = require('fs');
 const express = require('express');
 
-var server = http.createServer(function(req,res){
+const resultJSON = require('./readFiles');
 
-    let indexFile = path.resolve(__dirname,'../index.html');
-    fs.exists(indexFile,function(exists){
-        if(!exists){
-            res.writeHead(404,{
-                'Content-Type' : 'text/plain'
-            });
-            res.write('404!您要找的页面跑到火星去了,请稍后再试!','utf8');
-            res.end();
-        }else{
-            fs.readFile(indexFile,'utf8',function(err,data){
-                if(err){
-                    res.writeHead(500,{
-                        'Content-Type' : 'text/plain'
-                    });
-                    res.end(err);
-                }else{
-                    res.writeHead(200,{
-                        'Content-Type':'text/html'
-                    });
-                    res.end(data);
-                }
-            })
-        }
-    });
+
+let app = express();
+let server = http.createServer(app);
+let routerSrc = express.static(path.resolve(__dirname,'../dist'));
+//指定静态文件的位置
+app.use(routerSrc,function(req,res){
+    res.end(JSON.stringify(resultJSON));
 });
-server.listen(PORT);
-console.log('服务器启动成功');
+
+//监听端口号
+server.listen(PORT,function(){
+    console.log("服务启动成功");
+});

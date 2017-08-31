@@ -77,7 +77,6 @@ function forDirs (dirs, doneCallback) {
 function readFiles (filePath) {
 
     fs.readFile(filePath,"utf8",function(err,data){
-        let dateStr,classId,error_status,priority,interfacePath,appPath;
         if(!err){
             data = data.split(/\n/g);
             data.forEach(function(curData){
@@ -99,8 +98,8 @@ function readFiles (filePath) {
                     resultJSON.push(curDataObj);
                 }
             });
-            console.log(resultJSON);
         }
+        module.exports.resultJSON = resultJSON;
     })
 
 }

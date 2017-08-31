@@ -23999,6 +23999,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var store = (0, _redux.createStore)(_MainReducer2.default);
+var stateDatas = store.getState();
+
 var MainApp = function (_Component) {
     _inherits(MainApp, _Component);
 
@@ -24007,22 +24010,28 @@ var MainApp = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (MainApp.__proto__ || Object.getPrototypeOf(MainApp)).call(this, props));
 
-        function getDatas() {
-            _axios2.default.get('/background/readFiles').then(function (response) {
-                console.log(response);
-            }).catch(function (error) {
-                console.log(error);
-            });
+        _this.state = {
+            warningDatas: []
         };
-        getDatas();
         return _this;
     }
 
     _createClass(MainApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            _axios2.default.get('/background/readFiles').then(function (response) {
+                this.setState({
+                    warningDatas: response.data.resultJSON
+                });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var store = (0, _redux.createStore)(_MainReducer2.default);
-            var stateDatas = store.getState();
+            var result = this.state.warningDatas;
+            console.log(result);
             return _react2.default.createElement(
                 'div',
                 { className: 'SOGOU-WARNING' },
@@ -24093,7 +24102,7 @@ module.exports = __webpack_require__.p + "078c480f2add6a1c5d7b34cece981e26.ttf";
 /* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "cd521593930b266a171c516578933681.svg";
+module.exports = __webpack_require__.p + "0e13511b1823bd770ceaea60316e51b4.svg";
 
 /***/ }),
 /* 204 */
@@ -24444,7 +24453,6 @@ var List = function (_Component) {
     _createClass(List, [{
         key: 'render',
         value: function render() {
-            console.log(this.props.datas);
             return _react2.default.createElement(
                 'div',
                 { className: 'warning-list' },
