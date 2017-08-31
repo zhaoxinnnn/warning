@@ -3,6 +3,22 @@ import React, {Component} from 'react';
 import './List.scss';
 
 export default class List extends Component {
+    constructor (props) {
+        super(props);
+    };
+    renderTable (datas) {
+        if(datas && datas.length != 0){
+            return datas.forEach(function(curData){
+                for(let key in curData){
+                    if(/path/gim.test(key)){
+                        <tr><td><a href='${curData[key]}' target="_blank">${curData[key]}</a></td></tr>;
+                    }else{
+                        <tr><td>${curData[key]}</td></tr>;
+                    }
+                }
+            });
+        }
+    };
     render () {
         return (
             <div className="warning-list">
@@ -24,13 +40,7 @@ export default class List extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                        </tr>
+                        {this.renderTable(this.props.datas)}
                     </tbody>
                 </table>
             </div>

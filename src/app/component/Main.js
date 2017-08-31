@@ -21,7 +21,7 @@ export default class MainApp extends Component {
     };
     componentDidMount () {
         axios.get('/background/readFiles')
-            .then(function(response){
+            .then(response=>{
                 this.setState({
                     warningDatas : response.data.resultJSON
                 });
@@ -29,14 +29,12 @@ export default class MainApp extends Component {
             .catch(function(error){
                 console.log(error);
             });
-    }
+    };
     render () {
-        const result = this.state.warningDatas;
-        console.log(result);
         return (
             <div className="SOGOU-WARNING">
                 <Header/>
-                <ContentMain datas={stateDatas}/>
+                <ContentMain datas={this.state.warningDatas?this.state.warningDatas:null}/>
                 <Footer/>
             </div>
         )

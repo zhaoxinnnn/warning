@@ -24019,8 +24019,10 @@ var MainApp = function (_Component) {
     _createClass(MainApp, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
+            var _this2 = this;
+
             _axios2.default.get('/background/readFiles').then(function (response) {
-                this.setState({
+                _this2.setState({
                     warningDatas: response.data.resultJSON
                 });
             }).catch(function (error) {
@@ -24030,13 +24032,11 @@ var MainApp = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var result = this.state.warningDatas;
-            console.log(result);
             return _react2.default.createElement(
                 'div',
                 { className: 'SOGOU-WARNING' },
                 _react2.default.createElement(_Header2.default, null),
-                _react2.default.createElement(_ContentMain2.default, { datas: stateDatas }),
+                _react2.default.createElement(_ContentMain2.default, { datas: this.state.warningDatas ? this.state.warningDatas : null }),
                 _react2.default.createElement(_Footer2.default, null)
             );
         }
@@ -24102,7 +24102,7 @@ module.exports = __webpack_require__.p + "078c480f2add6a1c5d7b34cece981e26.ttf";
 /* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "0e13511b1823bd770ceaea60316e51b4.svg";
+module.exports = __webpack_require__.p + "cd521593930b266a171c516578933681.svg";
 
 /***/ }),
 /* 204 */
@@ -24341,10 +24341,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ContentMain = function (_Component) {
     _inherits(ContentMain, _Component);
 
-    function ContentMain() {
+    function ContentMain(props) {
         _classCallCheck(this, ContentMain);
 
-        return _possibleConstructorReturn(this, (ContentMain.__proto__ || Object.getPrototypeOf(ContentMain)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ContentMain.__proto__ || Object.getPrototypeOf(ContentMain)).call(this, props));
     }
 
     _createClass(ContentMain, [{
@@ -24444,13 +24444,50 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var List = function (_Component) {
     _inherits(List, _Component);
 
-    function List() {
+    function List(props) {
         _classCallCheck(this, List);
 
-        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
     }
 
     _createClass(List, [{
+        key: 'renderTable',
+        value: function renderTable(datas) {
+            if (datas && datas.length != 0) {
+                return datas.forEach(function (curData) {
+                    for (var key in curData) {
+                        if (/path/gim.test(key)) {
+                            _react2.default.createElement(
+                                'tr',
+                                null,
+                                _react2.default.createElement(
+                                    'td',
+                                    null,
+                                    _react2.default.createElement(
+                                        'a',
+                                        { href: '${curData[key]}', target: '_blank' },
+                                        '$',
+                                        curData[key]
+                                    )
+                                )
+                            );
+                        } else {
+                            _react2.default.createElement(
+                                'tr',
+                                null,
+                                _react2.default.createElement(
+                                    'td',
+                                    null,
+                                    '$',
+                                    curData[key]
+                                )
+                            );
+                        }
+                    }
+                });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -24504,35 +24541,7 @@ var List = function (_Component) {
                     _react2.default.createElement(
                         'tbody',
                         null,
-                        _react2.default.createElement(
-                            'tr',
-                            null,
-                            _react2.default.createElement(
-                                'td',
-                                null,
-                                '1'
-                            ),
-                            _react2.default.createElement(
-                                'td',
-                                null,
-                                '2'
-                            ),
-                            _react2.default.createElement(
-                                'td',
-                                null,
-                                '3'
-                            ),
-                            _react2.default.createElement(
-                                'td',
-                                null,
-                                '4'
-                            ),
-                            _react2.default.createElement(
-                                'td',
-                                null,
-                                '5'
-                            )
-                        )
+                        this.renderTable(this.props.datas)
                     )
                 )
             );

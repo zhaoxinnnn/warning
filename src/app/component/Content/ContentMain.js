@@ -4,6 +4,9 @@ import Tab from './Tab/Tab';
 import List from './List/List';
 
 export default class ContentMain extends Component {
+    constructor (props) {
+        super(props);
+    }
     render () {
         return (
             <div className="warning-content">

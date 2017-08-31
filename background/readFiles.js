@@ -7,7 +7,7 @@ let dirs = [];
 dirs.push(filesPath);
 
 function forFiles (files, file_path, callback, allFilesDoneCallback) {
-    let arrlength = files.length;
+    let arrlength = files?files.length:0;
     if(!files || files.length == 0) {
         allFilesDoneCallback(file_path);
         return;
