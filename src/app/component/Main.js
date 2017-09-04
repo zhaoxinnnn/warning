@@ -32,7 +32,7 @@ export default class MainApp extends Component {
     };
     render () {
         return (
-            <div className="SOGOU-WARNING">
+            <div className="warning-container">
                 <Header/>
                 <ContentMain datas={this.state.warningDatas?this.state.warningDatas:null}/>
                 <Footer/>

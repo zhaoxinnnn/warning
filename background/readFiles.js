@@ -6,16 +6,24 @@ let filesPath = path.resolve(__dirname,"../files");
 let dirs = [];
 dirs.push(filesPath);
 
+function getAllDates (fileDate) {
+    let date = new Date().getTime(),isRead = true;
+    fileDate = new Date(fileDate).getTime();
+    return fileDate <= date;
+};
+
 function forFiles (files, file_path, callback, allFilesDoneCallback) {
     let arrlength = files?files.length:0;
     if(!files || files.length == 0) {
         allFilesDoneCallback(file_path);
         return;
-    }
+    };
+    files.reverse();
     for(let i = 0;i<files.length;i++){
         let e = files[i];
-        let fileReg = new RegExp(`access_2017-08-28_11_13.log`,"igm");
-        if(!fileReg.test(e)){
+        let fileDate = e.split('_')?e.split('_')[1]:"";
+        let isRead = getAllDates(fileDate?fileDate:"");
+        if(!isRead){
             arrlength--;
             continue;
         }
@@ -79,9 +87,10 @@ function readFiles (filePath) {
     fs.readFile(filePath,"utf8",function(err,data){
         if(!err){
             data = data.split(/\n/g);
+            data.reverse();
             data.forEach(function(curData){
                 if(curData){
-                    let curDataObj = {};
+                    let curDataObj = {},interfacePath;
                     curDataObj["dateStr"] = curData.match(/\[(.*?)(?=\])\]/g)?curData.match(/\[(.*?)(?=\])\]/)[1].split(/\s+/)[0]:"";
                     interfacePath = curData.match(/(\/jk_send.gif[^\s]+)/g)?curData.match(/(\/jk_send.gif[^\s]+)/g)[0]:"";
                     interfacePath = interfacePath.split(/&/);
@@ -91,6 +100,10 @@ function readFiles (filePath) {
                             curDataObj["classId"] = aryItem.match(/\d+/)?aryItem.match(/\d+/)[0]:"";
                         }else{
                             aryItem = aryItem.split("=");
+                            if(aryItem[0] == 't')continue;
+                            if(aryItem[0] == 'err_status'){
+                                aryItem[1] = aryItem[1]=='1'?'接口超时':'接口报错';
+                            }
                             aryItem?curDataObj[aryItem[0]] = aryItem[1]:"";
                         }
                     }
@@ -102,8 +115,7 @@ function readFiles (filePath) {
         module.exports.resultJSON = resultJSON;
     })
 
-}
-
+};
 
 forDirs(dirs,function(filesArray){
     if(filesArray.length > 0){
@@ -112,5 +124,3 @@ forDirs(dirs,function(filesArray){
         };
     }
 });
-
-
