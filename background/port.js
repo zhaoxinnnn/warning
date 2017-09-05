@@ -3,16 +3,19 @@ const http = require('http');
 const path = require('path');
 const express = require('express');
 
-const resultJSON = require('./readFiles');
+const getAllDatas = require('./readFiles');
 
 
 let app = express();
 let server = http.createServer(app);
 let routerSrc = express.static(path.resolve(__dirname,'../dist'));
 //指定静态文件的位置
-app.use(routerSrc,function(req,res){
+app.use(routerSrc,function(req,res){});
+app.get('..',function(req,res){
+    console.log("jjjjjjjjjjjjjjjjj")
+    let resultJSON = getAllDatas();
     res.end(JSON.stringify(resultJSON));
-});
+})
 
 //监听端口号
 server.listen(PORT,function(){

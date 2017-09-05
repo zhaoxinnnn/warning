@@ -2,6 +2,7 @@ const path = require("path")
 const fs = require("fs");
 const resultJSON = [];
 
+
 let filesPath = path.resolve(__dirname,"../files");
 let dirs = [];
 dirs.push(filesPath);
@@ -109,18 +110,23 @@ function readFiles (filePath) {
                     }
                     curDataObj["appPath"] = curData.match(/\"(.*?)(?=\")\"/g)?curData.match(/\"(.*?)(?=\")\"/g)[1].replace(/\"/g,""):"";
                     resultJSON.push(curDataObj);
-                }
+                };
             });
-        }
-        module.exports.resultJSON = resultJSON;
-    })
+            return resultJSON;
+        };
+    });
 
 };
 
-forDirs(dirs,function(filesArray){
-    if(filesArray.length > 0){
-        for(let filePath of filesArray){
-            readFiles(filePath);
-        };
-    }
-});
+function getAllDatas(startDate) {
+    forDirs(dirs,function(filesArray){
+        if(filesArray.length > 0){
+            for(let filePath of filesArray){
+                readFiles(filePath);
+            };
+        }
+    });
+    return resultJSON;
+};
+
+module.exports = getAllDatas;

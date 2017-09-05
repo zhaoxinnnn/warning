@@ -20,7 +20,7 @@ export default class MainApp extends Component {
         }
     };
     componentDidMount () {
-        axios.get('/background/readFiles')
+        axios.get('/')
             .then(response=>{
                 this.setState({
                     warningDatas : response.data.resultJSON
