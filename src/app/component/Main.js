@@ -15,18 +15,14 @@ const stateDatas = store.getState();
 export default class MainApp extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            warningDatas : []
-        }
+        console.log(state)
     };
-    componentDidMount () {
-        axios.get('/')
-            .then(response=>{
-                this.setState({
-                    warningDatas : response.data.resultJSON
-                });
-            })
-            .catch(function(error){
+    componentWillMount () {
+        axios.get('/getDatas').then(response=>{
+            this.state = {
+                warningDatas : response.data.resultJSON
+            }
+            }).catch(function(error){
                 console.log(error);
             });
     };
