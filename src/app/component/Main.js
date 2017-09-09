@@ -15,13 +15,14 @@ const stateDatas = store.getState();
 export default class MainApp extends Component {
     constructor(props){
         super(props);
-        console.log(state)
     };
     componentWillMount () {
         axios.get('/getDatas').then(response=>{
-            this.state = {
-                warningDatas : response.data.resultJSON
-            }
+                this.refs = {
+                    data : []
+                }
+                this.refs.datas = response.data;
+                this.refs.datas = response.data;
             }).catch(function(error){
                 console.log(error);
             });
@@ -30,7 +31,7 @@ export default class MainApp extends Component {
         return (
             <div className="warning-container">
                 <Header/>
-                <ContentMain datas={this.state.warningDatas?this.state.warningDatas:null}/>
+                <ContentMain ref={datas}/>
                 <Footer/>
             </div>
         )

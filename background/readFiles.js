@@ -1,8 +1,7 @@
 const path = require("path")
 const fs = require("fs");
-const resultJSON = [];
 
-
+let resultJSON = [];
 let filesPath = path.resolve(__dirname,"../files");
 let dirs = [];
 dirs.push(filesPath);
@@ -17,6 +16,7 @@ function readDir (dirPath) {
     if(dirPath){
         let filesAry  = fs.readdirSync(dirPath);
         filesAry.reverse();
+        if(resultJSON.length !== 0){resultJSON = [];};
         for(let curFile of filesAry){
              readFiles(curFile);
         }
@@ -24,7 +24,7 @@ function readDir (dirPath) {
 }
 
 function readFiles (filePath) {
-    let fileText = fs.readFileSync("../files/"+filePath,"utf8");
+    let fileText = fs.readFileSync("./files/"+filePath,"utf8");
     if(fileText){
         data = fileText.split(/\n/g);
         data.reverse();
