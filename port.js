@@ -13,7 +13,6 @@ let server = http.createServer(app);
 app.use(express.static(path.resolve(__dirname,'./dist')));
 app.get('/getDatas',function(req,res){
     let resultJSON = getAllDatas();
-    console.log(resultJSON)
     res.end(JSON.stringify(resultJSON));
 })
 

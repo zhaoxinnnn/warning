@@ -7,7 +7,6 @@ export default class List extends Component {
         super(props);
     };
     renderTable (datas) {
-        console.log(datas)
         if(datas && datas.length != 0){
             return datas.map(function(curData){
                 let eles = [],countTd = 0;
