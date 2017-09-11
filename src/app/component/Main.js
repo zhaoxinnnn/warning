@@ -5,7 +5,7 @@ import './Main.scss';
 import Header from './Header/Header';
 import ContentMain from './Content/ContentMain';
 import Footer from './Footer/Footer';
-import reducer from './Reducer/MainReducer';
+import reducer from '../Reducer/MainReducer';
 import {createStore} from 'redux';
 import axios from 'axios';
 

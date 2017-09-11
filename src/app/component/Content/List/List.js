@@ -1,54 +1,60 @@
 import React, {Component} from 'react';
+import { Table } from 'antd';
 
-import './List.scss';
 
 export default class List extends Component {
+    state = {
+        datas: [],
+        pagination: {},
+        loading: false
+    }
     constructor (props) {
         super(props);
     };
     renderTable (datas) {
         if(datas && datas.length != 0){
             return datas.map(function(curData){
-                let eles = [],countTd = 0;
-                for(let key in curData){
-                    if(/path/gim.test(key)){
-                        eles.push(<td key={key}><a href={curData[key]} target="_blank">{curData[key]}</a></td>);
-                    }else{
-                        eles.push(<td key={key}>{curData[key]}</td>);
-                    }
-                    countTd++;
-                }
-                countTd<6?eles.push(<td>暂无</td>):null;
-                return <tr>{eles}</tr>;
+                if(!curData['otherInfo']){
+                    curData['otherInfo'] = '暂无';
+                };
+                return curData;
             });
         }
     };
     render () {
+        const columns = [{
+                title: '报警时间',
+                dataIndex: 'dateStr',
+                key: 'dateStr'
+            },{
+                title: 'classId',
+                dataIndex: 'classId',
+                key: 'classId'
+            },{
+                title: '错误码',
+                dataIndex: 'err_status',
+                key: 'err_status'
+            },{
+                title: '优先级',
+                dataIndex: 'priority',
+                key: 'priority'
+            },{
+                title: '报错地址',
+                dataIndex: 'appPath',
+                key: 'appPath',
+                render: text => <a href={text} target="_blank">{text}</a>
+            },{
+                title: '其他信息',
+                dataIndex: 'otherInfo',
+                key: 'otherInfo'
+            }];
         return (
             <div className="warning-list">
-                <table className="warning-table">
-                    <colgroup>
-                        <col style={{width:'20%'}}/>
-                        <col style={{width:'10%'}}/>
-                        <col style={{width:'10%'}}/>
-                        <col style={{width:'10%'}}/>
-                        <col style={{width:'30%'}}/>
-                        <col style={{width:'10%'}}/>
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>时间</th>
-                            <th>classid</th>
-                            <th>错误码</th>
-                            <th>优先级</th>
-                            <th>报错地址</th>
-                            <th>其他信息</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderTable(this.props.datas)}
-                    </tbody>
-                </table>
+                <Table bordered
+                dataSource={this.renderTable(this.props.datas)} 
+                columns={columns} 
+                rowKey={record => record.registered}
+                pagination={this.state.pagination} />
             </div>
         );
     }
