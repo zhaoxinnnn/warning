@@ -1,4 +1,4 @@
-const initState = 0;
+const initState = 3939339;
 export default (state = initState, action) => {
     switch (action.type) {
         case "GETERRORINFOS" :

@@ -16,7 +16,7 @@ module.exports = {
             include: path.join(__dirname, 'src')
         }, {
             test: /\.(less|css|scss|sass)$/,
-            use: ["style-loader", "css-loader", "less-loader", "sass-loader"]
+            use: ["style-loader", "css-loader", "less-loader","sass-loader"]
         }, {
             test: /\.(png|jpg|gif|md)$/,
             use: ['file-loader?limit=10000&name=[md5:hash:base64:10].[ext]']

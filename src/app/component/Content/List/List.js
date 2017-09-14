@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { Table } from 'antd';
-
+import Table from 'antd/lib/table';  // 加载 JS
+import './list.scss';
 
 export default class List extends Component {
     state = {
