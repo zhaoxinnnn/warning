@@ -12,10 +12,15 @@ let server = http.createServer(app);
 //指定静态文件的位置
 app.use(express.static(path.resolve(__dirname,'./dist')));
 app.get('/getDatas',function(req,res){
+    console.log('index');
     let resultJSON = getAllDatas();
-    console.log(resultJSON);
     res.end(JSON.stringify(resultJSON));
-})
+});
+app.get('/getDatas/:param',function(req,res){
+    let params = req.params.param;
+    let resultJSON = getAllDatas(params);
+    res.end(JSON.stringify(resultJSON));
+});
 
 //监听端口号
 server.listen(PORT,function(){

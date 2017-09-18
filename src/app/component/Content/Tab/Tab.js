@@ -12,8 +12,9 @@ export default class Tab extends Component {
     defaultSelectedKeys: ['today']
   };
   handleClick = (e) => {
-    axios.get(`/getDatas?${ e.key}`)
+    axios.get(`/getDatas/${e.key}`)
     .then(response=>{
+      console.log(response.data);
         this.setState({
             responeDatas: response.data
         });

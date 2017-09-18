@@ -1,24 +1,41 @@
 const path = require("path")
 const fs = require("fs");
+const DateMethod = require("./date");
+
 
 let resultJSON = [];
 let filesPath = path.resolve(__dirname,"../files");
 let dirs = [];
+let dateObj = {
+    'today': 0,
+    'week': 7,
+    'month': 30,
+    'all': ''
+};
+let dateFn = new DateMethod();
 dirs.push(filesPath);
 
-function getAllDates (fileDate) {
+function isExist (fileDate,day) {
     let date = new Date().getTime(),isRead = true;
     fileDate = new Date(fileDate).getTime();
-    return fileDate <= date;
+    return fileDate <= date && fileDate >= day;
 };
 
-function readDir (dirPath) {
+function readDir (dirPath, day) {
+    if(!day){
+        day = dateFn.getToday();
+    }else{
+        day = dateFn.getSomeDay(dateObj[day]);
+    };
     if(dirPath){
         let filesAry  = fs.readdirSync(dirPath);
         filesAry.reverse();
         if(resultJSON.length !== 0){resultJSON = [];};
         for(let curFile of filesAry){
-             readFiles(curFile);
+            let fileDate = curFile.split('_')?curFile.split('_')[1]:"";
+            let isRead = isExist(fileDate,day);
+            console.log(isRead);
+            isRead?readFiles(curFile):null;
         }
     }
 }
@@ -55,11 +72,12 @@ function readFiles (filePath) {
 
 };
 
-function getAllDatas() {
+function getAllDatas(day) {
+    console.log(day);
     for(let filePath of dirs){
         let statInfo = fs.statSync(filePath);
         if(statInfo){
-            readDir(filePath);
+            readDir(filePath,day);
         }       
     };
     return resultJSON;
