@@ -18,9 +18,6 @@ module.exports = {
             test: /\.(less|css|scss|sass)$/,
             use: ["style-loader", "css-loader", "less-loader","sass-loader"]
         }, {
-            test: /\.(png|jpg|gif|md)$/,
-            use: ['file-loader?limit=10000&name=[md5:hash:base64:10].[ext]']
-        }, {
             test: /\.(ttf|svg)(\?v=\d+\.\d+\.\d+)?$/,
             use: ['url-loader?limit=10000&mimetype=image/svg+xml']
         }],

@@ -11,24 +11,29 @@ export default class MainApp extends Component {
     constructor(props){
         super(props);
         this.state = {
-            responeDatas: []
+            responseDatas: [],//所有数据
+            backupsDatas: [],//查询框数据
+            showSearchDatas: false,//是否展示查询框相关数据
+            tableLoading: true//是否展示loading
         }
     };
-    onTabChange (newState) {
-        this.setState({
-            responeDatas: newState
-          });
+    //改变state对象
+    changeState (stateObj) {
+        this.setState(stateObj);
     };
     componentWillMount () {
-        //document.getElementsByClassName('ant-table-placeholder').style.display = 'none';
         axios.get('/getDatas')
         .then(response=>{
             this.setState({
-                responeDatas: response.data
+                responseDatas: response.data,
+                tableLoading: false,
+                backupsDatas: response.data
             });
         }).catch(function(error){
             this.setState({
-                responeDatas: []
+                responseDatas: [],
+                tableLoading: false,
+                backupsDatas: []
             });
         });
     };
@@ -36,7 +41,10 @@ export default class MainApp extends Component {
         return (
             <div className="warning-container">
                 <Header/>
-                <ContentMain datas={this.state.responeDatas} handleDataChange={this.onTabChange.bind(this)}/>
+                <ContentMain 
+                    datas={this.state} 
+                    changeState={this.changeState.bind(this)}
+                />
                 <Footer/>
             </div>
         )

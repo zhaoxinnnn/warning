@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import Table from 'antd/lib/table';  // 加载 JS
+
 import './list.scss';
 
 export default class List extends Component {
     state = {
         datas: [],
-        pagination: {},
-        loading: false
+        pagination: {}
     }
     constructor (props) {
         super(props);
@@ -50,14 +50,43 @@ export default class List extends Component {
                 dataIndex: 'otherInfo',
                 key: 'otherInfo'
             }];
-        return (
-            <div className="warning-list">
-                <Table bordered
-                dataSource={this.renderTable(this.props.datas)} 
-                columns={columns} 
-                rowKey={record => record.registered}
-                pagination={this.state.pagination} />
-            </div>
-        );
+        if(this.props.datas.tableLoading){
+            return (
+                <div className="warning-list">
+                    <div className="ant-table-wrapper">
+                        <div className="ant-spin-nested-loading">
+                            <div>
+                                <div className="ant-spin ant-spin-spinning ant-table-without-pagination ant-table-spin-holder"><span className="ant-spin-dot"><i></i><i></i><i></i><i></i></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }else if(this.props.showSearchDatas){
+            return (
+                <div className="warning-list">
+                    <Table bordered
+                    dataSource={this.renderTable(this.props.datas.searchDatas)} 
+                    columns={columns} 
+                    pagination={this.state.pagination}
+                    rowKey='key'
+                    loading={this.props.datas.tableLoading}
+                    />
+                </div>
+            );
+        }else{
+            return (
+                <div className="warning-list">
+                    <Table bordered
+                    dataSource={this.renderTable(this.props.datas.responseDatas)} 
+                    columns={columns} 
+                    pagination={this.state.pagination}
+                    rowKey='key'
+                    loading={this.props.datas.tableLoading}
+                    />
+                </div>
+            );
+        };
+        
     }
 }

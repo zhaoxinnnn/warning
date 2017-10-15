@@ -7,7 +7,7 @@ export default class Header extends Component {
         return (
           <header className="warning-header">
               <a className="warning-logo" href="#">
-                <img src="../static/images/logo.png"/>
+                <img src="../src/app/static/images/logo.png"/>
                 <span className="warning-site-name">VR实时报警平台</span>
               </a>
               

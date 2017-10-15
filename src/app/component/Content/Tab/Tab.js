@@ -17,12 +17,24 @@ export default class Tab extends Component {
     defaultSelectedKeys: ['today']
   };
   handleClick = (e) => {
+    this.props.changeState({
+      tableLoading: true
+    });
     axios.get(`/getDatas/${e.key}`)
     .then(response=>{
-      console.log(response.data);
-      this.props.handleDataChange(response.data);
+      this.props.changeState({
+        responseDatas: response.data,
+        tableLoading: false,
+        showSearchDatas: [],
+        searchDatas: false
+      });
     }).catch(function(error){
-      this.props.handleDataChange([]);
+      this.props.changeState({
+          responseDatas: [],
+          tableLoading: false,
+          showSearchDatas: [],
+          searchDatas: false
+        });
     });
   };
   onOpenChange = (openKeys) => {
@@ -47,8 +59,8 @@ export default class Tab extends Component {
       >
         <SubMenu key="time1" title={<span><Icon type="mail" /><span>按日期查询</span></span>}>
           <Menu.Item key="today">当天</Menu.Item>
-          <Menu.Item key="week">本周</Menu.Item>
-          <Menu.Item key="month">本月</Menu.Item>
+          <Menu.Item key="week">一周内</Menu.Item>
+          <Menu.Item key="month">一月内</Menu.Item>
           <Menu.Item key="all">所有</Menu.Item>
         </SubMenu>
       </Menu>
