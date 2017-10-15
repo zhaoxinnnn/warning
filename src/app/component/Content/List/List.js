@@ -41,6 +41,7 @@ export default class List extends Component {
             },{
                 title: '报错地址',
                 dataIndex: 'appPath',
+                className: 'truncation',
                 key: 'appPath',
                 style:'width:10%',
                 render: text => <a href={text} target="_blank">{text}</a>

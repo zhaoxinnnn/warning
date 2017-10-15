@@ -5,6 +5,11 @@ import axios from 'axios';
 const SubMenu = Menu.SubMenu;
 
 export default class Tab extends Component {
+
+  constructor(props){
+    super(props);
+  }
+
  // submenu keys of first level
   rootSubmenuKeys = ['time1', 'sub2', 'sub4'];
   state = {
@@ -15,15 +20,11 @@ export default class Tab extends Component {
     axios.get(`/getDatas/${e.key}`)
     .then(response=>{
       console.log(response.data);
-        this.setState({
-            responeDatas: response.data
-        });
+      this.props.handleDataChange(response.data);
     }).catch(function(error){
-        this.setState({
-            responeDatas: []
-        });
+      this.props.handleDataChange([]);
     });
-  }
+  };
   onOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
     if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
