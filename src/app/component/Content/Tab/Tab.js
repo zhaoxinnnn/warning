@@ -24,16 +24,16 @@ export default class Tab extends Component {
     .then(response=>{
       this.props.changeState({
         responseDatas: response.data,
+        backupsDatas: response.data,
         tableLoading: false,
-        showSearchDatas: [],
-        searchDatas: false
+        showSearchDatas: false
       });
     }).catch(function(error){
       this.props.changeState({
           responseDatas: [],
+          backupsDatas: [],
           tableLoading: false,
-          showSearchDatas: [],
-          searchDatas: false
+          showSearchDatas: false
         });
     });
   };
@@ -57,7 +57,7 @@ export default class Tab extends Component {
         style={{ width: 240 }}
         onClick={this.handleClick}
       >
-        <SubMenu key="time1" title={<span><Icon type="mail" /><span>按日期查询</span></span>}>
+        <SubMenu key="time1" title={<span><Icon type="calendar" /><span>按日期查询</span></span>}>
           <Menu.Item key="today">当天</Menu.Item>
           <Menu.Item key="week">一周内</Menu.Item>
           <Menu.Item key="month">一月内</Menu.Item>

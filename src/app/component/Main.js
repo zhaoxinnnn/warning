@@ -14,7 +14,8 @@ export default class MainApp extends Component {
             responseDatas: [],//所有数据
             backupsDatas: [],//查询框数据
             showSearchDatas: false,//是否展示查询框相关数据
-            tableLoading: true//是否展示loading
+            tableLoading: true,//是否展示loading
+            resetSeachInput: true//是否重置输入框
         }
     };
     //改变state对象
@@ -29,6 +30,7 @@ export default class MainApp extends Component {
                 tableLoading: false,
                 backupsDatas: response.data
             });
+            console.log(this.state)
         }).catch(function(error){
             this.setState({
                 responseDatas: [],
@@ -45,7 +47,6 @@ export default class MainApp extends Component {
                     datas={this.state} 
                     changeState={this.changeState.bind(this)}
                 />
-                <Footer/>
             </div>
         )
     }

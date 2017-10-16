@@ -16,7 +16,10 @@ export default class SearchInput extends Component {
         let allDatas = this.props.datas['responseDatas'],searchDatas = [];
         for(let i=0;i<allDatas.length;i++){
             let cur = allDatas[i];
-            if(value.indexOf(cur['classId']) != -1){
+            console.log(value)
+            if(value && value.indexOf(cur['classId']) != -1){
+                searchDatas.push(cur);
+            }else if(value == ''){
                 searchDatas.push(cur);
             }
         };
@@ -29,10 +32,10 @@ export default class SearchInput extends Component {
     render () {
         return (
             <Search
-            placeholder="search classid"
-            onSearch={value => this.onSearch(value)}
-            className="searchInput"
-          />
+                placeholder={this.props.datas.resetSeachInput?"search classid":value}
+                onSearch={value => this.onSearch(value)}
+                onPressEnter={value => this.onSearch(value)}
+                className="searchInput"/>
         )
     }
 }

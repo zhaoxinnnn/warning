@@ -12,9 +12,13 @@
         .ant-spin-spinning{
             height: 300px;
         }
-        .truncation{
+        .truncation a{
             height: 50px;
-            width: 200px;
+            width: 300px;
+            overflow:hidden; 
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            display:inline-block;
         }
     }
 }

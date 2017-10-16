@@ -7,19 +7,19 @@ export default class resetButton extends Component {
     
     constructor(props){
         super(props);
-    };
+    }
 
     resetDatas () {
-        console.log(this);
         this.props.changeState({
-            responseDatas: this.props.backupsDatas,
-            showSearchDatas: false
+            responseDatas: this.props.datas.backupsDatas,
+            showSearchDatas: false,
+            resetSeachInput: true
         });
     };
 
     render () {
         return (
-            <Button onClick={this.resetDatas} className="reset">重置</Button>
+            <Button onClick={this.resetDatas.bind(this)} className="reset">重置</Button>
         )
     }
 }

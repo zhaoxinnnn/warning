@@ -25,9 +25,9 @@ export default class ContentMain extends Component {
                     <Input 
                         datas={this.props.datas} 
                         changeState={this.props.changeState}/>
-                    {/*<Reset 
+                    <Reset 
                         datas={this.props.datas} 
-                    changeState={this.props.changeState}/>*/}
+                        changeState={this.props.changeState}/>
                     <List datas={this.props.datas}/>
                 </right>
             </div>

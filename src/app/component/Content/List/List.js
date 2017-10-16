@@ -69,7 +69,7 @@ export default class List extends Component {
                     dataSource={this.renderTable(this.props.datas.searchDatas)} 
                     columns={columns} 
                     pagination={this.state.pagination}
-                    rowKey='key'
+                    rowKey='key1'
                     loading={this.props.datas.tableLoading}
                     />
                 </div>
@@ -81,7 +81,7 @@ export default class List extends Component {
                     dataSource={this.renderTable(this.props.datas.responseDatas)} 
                     columns={columns} 
                     pagination={this.state.pagination}
-                    rowKey='key'
+                    rowKey='key2'
                     loading={this.props.datas.tableLoading}
                     />
                 </div>
