@@ -38,6 +38,7 @@
     "axios": "^0.16.2",
     "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.4.0",
+    "mysql": "^2.15.0",
     "nodemon": "^1.11.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

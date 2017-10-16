@@ -55,8 +55,7 @@ export default class Tab extends Component {
         defaultSelectedKeys = {this.state.defaultSelectedKeys}
         onOpenChange={this.onOpenChange}
         style={{ width: 240 }}
-        onClick={this.handleClick}
-      >
+        onClick={this.handleClick}>
         <SubMenu key="time1" title={<span><Icon type="calendar" /><span>按日期查询</span></span>}>
           <Menu.Item key="today">当天</Menu.Item>
           <Menu.Item key="week">一周内</Menu.Item>
