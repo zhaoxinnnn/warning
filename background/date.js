@@ -9,8 +9,9 @@ DateMethod.prototype.getToday = function () {
     return `${year}-${month}-${date}`;
 };
 
+
 DateMethod.prototype.getSomeDay = function (time) {
-    if(!time)return '';
+    if(!time && time != 0)return '';
     let someDay = new Date();
     let otherDay = new Date(someDay);
     otherDay.setDate(someDay.getDate() - time);
