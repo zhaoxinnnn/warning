@@ -16,7 +16,7 @@ connection.connect(function(err){
     }else{
         let updateObj = {};
         console.log('connect success');
-        connection.query('select id,t from logtest2',function(err, rows, fields){
+        connection.query('select id,t from logtest',function(err, rows, fields){
             for(let item of rows){
                 let t2 = item['t'];
                 if(t2 != ''){
@@ -25,29 +25,30 @@ connection.connect(function(err){
                     t2 = '';
                 }
                 updateObj[item['id']] = t2;
-            }
-            console.log(updateObj);
-        });
-        for(let {key,value} in updateObj){
-            console.log(key,value)
-            connection.query(`update logtest2 set t2 = ${item['t2']} where id = ${item['id']}`,function (err, result) {
-                
-                   if(err){
-                
-                         console.log('[UPDATE ERROR] - ',err.message);
-                
-                         return;
-                
-                   }       
-                
-                  console.log('----------UPDATE-------------');
-                
-                  console.log('UPDATE affectedRows',result.affectedRows);
-                
-                  console.log('******************************');
-                
+            };
+            for(let key in updateObj){
+                let value = updateObj[key];
+                console.log(key,value)
+                connection.query(`update logtest set t2 = "${value}" where id = ${key}`,function (err, result) {
+                    
+                       if(err){
+                    
+                             console.log('[UPDATE ERROR] - ',err.message);
+                    
+                             return;
+                    
+                       }       
+                    
+                      console.log('----------UPDATE-------------');
+                    
+                      console.log('UPDATE affectedRows',result.affectedRows);
+                    
+                      console.log('******************************');
+                    
                 })
-        }
+            }
+        });
+        
        
     }
 });

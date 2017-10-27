@@ -49,7 +49,9 @@ function getDBData (day) {
         day = dateFn.getSomeDay(dateObj[day]);
     };
     if(resultJSON.length !== 0){resultJSON = [];};
-    concatSql = `select * from ${connection.database} ${day?`where t2 >= ${day}`:''}`;
+    concatSql = `select * from ${config.mysqlConf.table} ${day?`where t2 >= '${day}'`:''}`;
+    console.log(concatSql);
+    var promiseObj = new Promise()
     getSearchData(concatSql);
 }
 
@@ -61,9 +63,10 @@ function getSearchData(sql){
                 console.log('[query] - :'+err);   
                 return;     
             }
-            console.log('The solution is: ', result);
-            console.log('*************************');
-        }); 
+            resultJSON = result;
+            console.log(resultJSON)
+    }); 
+    console.log('1'+resultJSON);
 }
 
 
