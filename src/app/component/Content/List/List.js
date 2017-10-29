@@ -24,8 +24,8 @@ export default class List extends Component {
     render () {
         const columns = [{
                 title: '报警时间',
-                dataIndex: 'dateStr',
-                key: 'dateStr'
+                dataIndex: 't',
+                key: 't'
             },{
                 title: 'classId',
                 dataIndex: 'classId',

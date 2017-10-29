@@ -1,13 +1,9 @@
-const path = require("path")
-const fs = require("fs");
 const DateMethod = require("./date");
 var mysql = require('mysql');
 var config = require('../config.js').config;
 
 
 let resultJSON = [];
-let filesPath = path.resolve(__dirname,"../files");
-let dirs = [];
 let dateObj = {
     'today': 0,
     'week': 7,
@@ -23,56 +19,36 @@ var connection = mysql.createConnection({
     database:config.mysqlConf.database
 });
 
-
 connection.connect(function(err){
     if(err){
-        console.log('error')
         return resultJSON;
     }else{
-        console.log('connect success')
-    }
+        console.log('connect success');
+    };
 });
 
 let dateFn = new DateMethod();
-dirs.push(filesPath);
-
-function isExist (fileDate,day) {
-    let date = new Date().getTime(),isRead = true;
-    fileDate = new Date(fileDate).getTime();
-    return fileDate <= date && fileDate >= day;
-};
-
-function getDBData (day) {
-    if(!day){
-        day = dateFn.getToday();
-    }else{
-        day = dateFn.getSomeDay(dateObj[day]);
-    };
-    if(resultJSON.length !== 0){resultJSON = [];};
-    concatSql = `select * from ${config.mysqlConf.table} ${day?`where t2 >= '${day}'`:''}`;
-    console.log(concatSql);
-    var promiseObj = new Promise()
-    getSearchData(concatSql);
-}
-
-
-
-function getSearchData(sql){
-    connection.query(sql, function(err, result) {       
-            if (err) {     
-                console.log('[query] - :'+err);   
-                return;     
-            }
-            resultJSON = result;
-            console.log(resultJSON)
-    }); 
-    console.log('1'+resultJSON);
-}
 
 
 function getAllDatas(day) {
-    getDBData(day);
-    return resultJSON;
+    
+        if(!day){
+            day = dateFn.getToday();
+        }else{
+            day = dateFn.getSomeDay(dateObj[day]);
+        };
+        if(resultJSON.length !== 0){
+            resultJSON = [];
+        };
+        concatSql = `select * from ${config.mysqlConf.table} ${day?`where t2 >= '${day}'`:''}`;
+        connection.query(concatSql, function(err, result) {
+            if (err) {     
+                console.log('error');
+            }else{
+                return result;
+            };
+        });
+    
 };
 
 module.exports = getAllDatas;
