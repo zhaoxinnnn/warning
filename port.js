@@ -51,7 +51,7 @@ app.get('/getDatas',function(req,res){
         if(resultJSON.length !== 0){
             resultJSON = [];
         };
-        concatSql = `select * from ${config.mysqlConf.table} ${day?`where t2 >= '${day}'`:''}`;
+        concatSql = `select * from ${config.mysqlConf.table} ${day?`where t2 = '${day}'`:''} order by t desc`;
         console.log(concatSql)
         connection.query(concatSql, function(err, result) {
             if (err) {     
@@ -84,7 +84,7 @@ app.get('/getDatas/:param',function(req,res){
         if(resultJSON.length !== 0){
             resultJSON = [];
         };
-        concatSql = `select * from ${config.mysqlConf.table} ${day?`where t2 >= '${day}'`:''}`;
+        concatSql = `select * from ${config.mysqlConf.table} ${day?`where t2 >= '${day}'`:''} order by t desc`;
         console.log(concatSql)
         connection.query(concatSql, function(err, result) {
             if (err) {     
